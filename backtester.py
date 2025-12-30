@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 
 class MeanReversionBacktester:
     """
-    A Vectorized Backtesting Engine for Mean Reversion Strategies.
+    A Vectorised Backtesting Engine for Mean Reversion Strategies.
     
     Strategy: Bollinger Bands Mean Reversion
-    - Logic: Capitalizes on 'oversold' and 'overbought' conditions.
+    - Logic: Capitalises on 'oversold' and 'overbought' conditions.
     - Entry: Long when price < Lower Band. Short when price > Upper Band.
     - Exit: Close position when price crosses the Simple Moving Average (SMA).
     
@@ -59,7 +59,7 @@ class MeanReversionBacktester:
 
     def run_strategy(self, SMA, dev):
         """
-        Executes the Mean Reversion Strategy (Vectorized).
+        Executes the Mean Reversion Strategy (Vectorised).
         
         Parameters
         ==========
@@ -78,7 +78,7 @@ class MeanReversionBacktester:
         data['Upper'] = data['SMA'] + dev * data['std']
         data['Lower'] = data['SMA'] - dev * data['std']
         
-        # 2. Vectorized Signal Generation
+        # 2. Vectorised Signal Generation
         # Distance from SMA (Z-score concept)
         data['distance'] = data['price'] - data['SMA']
         
@@ -92,11 +92,10 @@ class MeanReversionBacktester:
         data.loc[data['price'] > data['Upper'], 'position'] = -1
         
         # Exit Condition: Price crosses SMA (Mean Reversion complete)
-        # In a vectorized backtest, crossing the SMA means distance changes sign.
-        # We assume flat (0) when crossing SMA, but for simplicity here we carry forward 
+        # In a vectorised backtest, crossing the SMA means distance changes sign.
+        # Assume flat (0) when crossing SMA, but for simplicity here carry forward 
         # previous positions until a signal flips. 
-        # A robust way: Forward fill positions, but clear them when crossing mean.
-        # For this CV project, we use a simpler 'Signal' approach:
+        # A robust way: Forward fill positions, but clear them when crossing mean
         # 1 = Long, -1 = Short, 0 = Neutral.
         
         # We fill NaNs with previous position to simulate holding the trade
@@ -163,7 +162,6 @@ class MeanReversionBacktester:
 ... # --- MAIN EXECUTION ---
 ... if __name__ == "__main__":
 ...     # 1. Instantiate Backtester (SPY = S&P 500 ETF)
-...     # Start/End dates match your "Nov 2025 - Present" narrative (using recent historical data)
 ...     bt = MeanReversionBacktester("SPY", "2020-01-01", "2025-10-01", 10000, 0.0005)
 ...     
 ...     # 2. Run Strategy (SMA=42, 2 Std Devs)
