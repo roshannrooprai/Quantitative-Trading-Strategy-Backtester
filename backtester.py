@@ -98,12 +98,12 @@ class MeanReversionBacktester:
         # A robust way: Forward fill positions, but clear them when crossing mean
         # 1 = Long, -1 = Short, 0 = Neutral.
         
-        # We fill NaNs with previous position to simulate holding the trade
+        # Fill NaNs with previous position to simulate holding the trade
         data['position'] = data['position'].ffill()
         
         # Optional: Force exit if price crosses SMA? 
         # Advanced Logic: Set position to 0 where price crosses SMA.
-        # For now, we stick to the core Reversion logic (flip position at extremes).
+        # For now, stick to the core Reversion logic (flip position at extremes).
         data['position'].fillna(0, inplace=True)
         
         # 3. Calculate Strategy Returns
